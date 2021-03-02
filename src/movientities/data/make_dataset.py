@@ -14,9 +14,12 @@ class MakeData:
     """Downloading or generating data"""
     @staticmethod
     def download_data(data_uri:str, save_path:str="/home/kemalaraz/Desktop/BERTNER/data/raw"):
+        assert os.path.isdir(save_path), "Save path must be a directory"
+        assert os.path.exists(os.path.join(save_path, data_uri.split("/")[-1])), "File exists"
         with DownloadProgressBar(unit='B', unit_scale=True,
                                 miniters=1, desc=data_uri.split('/')[-1]) as t:
             urllib.request.urlretrieve(data_uri, filename=os.path.join(save_path, data_uri.split("/")[-1]), reporthook=t.update_to)
 
     def generate(self):
-        pass
+        """Generates syntetic data"""
+        raise NotImplementedError
