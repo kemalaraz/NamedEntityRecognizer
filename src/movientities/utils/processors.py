@@ -73,7 +73,7 @@ class NerPreProcessor:
     @classmethod
     def get_instances(cls, data_dir:str, job_type:str):
         assert job_type in NerPreProcessor.__jobs__, f"The jobtype is wrong must be one of -> {NerPreProcessor.__jobs__}"
-        return NerPreProcessor._create_instances(NerPreProcessor.__readfile(os.path.join(data_dir, "train" + ".txt")), job_type)
+        return NerPreProcessor._create_instances(NerPreProcessor.__readfile(os.path.join(data_dir, job_type + ".txt")), job_type)
 
     @classmethod
     def convert_instances_to_features(cls, examples, label_list, max_seq_length, tokenizer):
