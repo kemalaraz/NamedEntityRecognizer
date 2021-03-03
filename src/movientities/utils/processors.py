@@ -221,3 +221,12 @@ class NerPreProcessor:
             encoded_labels.append(enc_labels.tolist())
 
         return encoded_labels
+
+    @staticmethod
+    def lstm_word_tokenizer(training_data:List) -> Dict:
+        tokenizer = {}
+        for sentence, tags in training_data:
+            for word in sentence:
+                if word not in tokenizer:
+                    tokenizer[word] = len(tokenizer)
+        return tokenizer

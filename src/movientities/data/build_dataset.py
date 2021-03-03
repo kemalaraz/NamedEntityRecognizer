@@ -1,6 +1,8 @@
 import os
 from typing import Dict
 
+import torch
+
 class BuildData:
 
     __datanames__ = ["train.txt", "dev.txt", "test.txt"]
@@ -62,6 +64,11 @@ class BuildData:
                 dataset[name + "_instances"] = texts
                 dataset[name + "_labels"] = labels
         return dataset
+
+    @staticmethod
+    def prepare_data_bilstmcrf(sequence:List, word2idx:Dict) -> torch.Tensor:
+        idxs = [word2idx[w] for w in sequence]
+        return torch.tensor(idxs, dtype=torch.long)
 
 
 if __name__ == "__main__":

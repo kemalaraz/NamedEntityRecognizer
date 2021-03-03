@@ -45,7 +45,6 @@ class Analyzer:
             plt.text(value, index, str(value))
         plt.show()
 
-plt.savefig(os.path.join('test.png'), dpi=300, format='png', bbox_inches='tight') # use format='svg' or 'pdf' for vectorial pictures
 
 if __name__ == "__main__":
     train_labels = Analyzer.count_labels("/home/karaz/Desktop/MovieEntityRecognizer/data/raw/engtrain.bio", without_o=True)
