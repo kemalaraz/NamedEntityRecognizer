@@ -1,5 +1,9 @@
 import os
-from typing import List
+import numpy as np
+from typing import List, Dict
+
+import torch
+from torch.utils.data import Dataset
 
 class InputInstance(object):
     """A single training/test example for simple sequence classification."""
@@ -30,6 +34,19 @@ class InputFeatures(object):
         self.label_id = label_id
         self.valid_ids = valid_ids
         self.label_mask = label_mask
+
+class NerDataset(Dataset):
+    def __init__(self, encodings, labels):
+        self.encodings = encodings
+        self.labels = labels
+
+    def __getitem__(self, idx):
+        item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+        item['labels'] = torch.tensor(self.labels[idx])
+        return item
+
+    def __len__(self):
+        return len(self.labels)
 
 class NerPreProcessor:
 
@@ -162,3 +179,45 @@ class NerPreProcessor:
                                 valid_ids=valid,
                                 label_mask=label_mask))
         return features
+
+    @staticmethod
+    def convert_labels(prior_labels:List, label_map:Dict, encodings) -> List:
+        """
+        This function gives actual label values to only the core part of tokens like if gold, ##en is
+        given only gold will get its label and ##en part get -100. This is done by for example
+        [
+            (0, 0), 1, [CLS], -> This will get -100 because it starts and ends with 0 offset
+            (0, 4), 1, bruce,
+            (0, 5), 1, willis,
+            (0, 2), 1, won,
+            (0, 4), 1, gold,
+            (4, 8), 1, ##en, -> Gets -100 because of not starting with 0
+            (0, 5), 1, globes,
+            (0, 0), 1, [SEP], -> This will get -100 because it starts and ends with 0 offset
+            (0, 0), 0, [PAD] -> This will get -100 because it starts and ends with 0 offset
+        ]
+        Btw, offset is the start and end point of token in characters and I give this example with actual
+        words for convenience but normally there are tokens in place.
+
+        Args:
+            prior_labels (List): Whole labels in a given dataset.
+            label_map (Dict): Unique labels mapped to numbers.
+            encodings ([type]): Token class that has tokens, offset etc in it.
+
+        Returns:
+            List: Processed label list
+        """
+        labels = [[label_map[label] for label in sentence] for sentence in prior_labels]
+
+        encoded_labels = []
+        for label, offsets in zip(labels, encodings.offset_mapping):
+
+            # create an empty array of -100
+            enc_labels = np.ones(len(offsets),dtype=int) * -100
+            np_offsets = np.array(offsets)
+
+            # set labels whose first offset position is 0 and the second is not 0
+            enc_labels[(np_offsets[:,0] == 0) & (np_offsets[:,1] != 0)] = label
+            encoded_labels.append(enc_labels.tolist())
+
+        return encoded_labels
