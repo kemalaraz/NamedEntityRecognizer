@@ -132,3 +132,4 @@ dmypy.json
 
 # Tensorboard
 runs/
+trained_models*
