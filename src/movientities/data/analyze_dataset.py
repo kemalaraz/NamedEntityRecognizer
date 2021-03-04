@@ -36,6 +36,31 @@ class Analyzer:
             labels.pop("O", None)
         return labels
 
+    def count_labels_txt(path:str, without_o:bool=False):
+        """
+        Count labels.
+
+        Args:
+            path (str): Path of the file.
+            without_o (bool, optional): If we dont want to count O or not. Defaults to False.
+
+        Returns:
+            [type]: [description]
+        """
+        assert os.path.exists(path), "Given path doesn't exists."
+        labels = {}
+        with open(path) as f:
+            for line in f.readlines():
+                if line != "\n":
+                    label = line.split(" ")[-1][:-1]
+                    if label not in labels.keys():
+                        labels[label] = 1
+                    else:
+                        labels[label] += 1
+        if without_o:
+            labels.pop("O", None)
+        return labels
+
     @staticmethod
     def plot_data(plot_dict:Dict):
         labels = list(plot_dict.keys())
