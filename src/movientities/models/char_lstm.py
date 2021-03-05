@@ -6,21 +6,21 @@ class CharBilstm(nn.Module):
     def __init__(self,
                  input_dim,
                  embedding_dim,
-                 char_emb_dim,  # NEWLY ADDED
-                 char_input_dim,  # NEWLY ADDED
-                 char_cnn_filter_num,  # NEWLY ADDED
-                 char_cnn_kernel_size,  # NEWLY ADDED
+                 char_emb_dim,
+                 char_input_dim,
+                 char_cnn_filter_num,
+                 char_cnn_kernel_size,
                  hidden_dim,
                  output_dim,
                  lstm_layers,
                  emb_dropout,
-                 cnn_dropout,  # NEWLY ADDED
+                 cnn_dropout,
                  lstm_dropout,
                  fc_dropout,
                  word_pad_idx,
-                 char_pad_idx):  # NEWLY ADDED
+                 char_pad_idx):
         super().__init__()
-        # LAYER 1A: Word Embedding
+
         self.embedding_dim = embedding_dim
         self.embedding = nn.Embedding(
             num_embeddings=input_dim,
@@ -28,8 +28,6 @@ class CharBilstm(nn.Module):
             padding_idx=word_pad_idx
         )
         self.emb_dropout = nn.Dropout(emb_dropout)
-        ### BEGIN MODIFIED SECTION: CHARACTER EMBEDDING ###
-        # LAYER 1B: Char Embedding-CNN
         self.char_emb_dim = char_emb_dim
         self.char_emb = nn.Embedding(
             num_embeddings=char_input_dim,
@@ -40,11 +38,10 @@ class CharBilstm(nn.Module):
             in_channels=char_emb_dim,
             out_channels=char_emb_dim * char_cnn_filter_num,
             kernel_size=char_cnn_kernel_size,
-            groups=char_emb_dim  # different 1d conv for each embedding dim
+            groups=char_emb_dim
         )
         self.cnn_dropout = nn.Dropout(cnn_dropout)
-        ### END MODIFIED SECTION ###
-        # LAYER 2: BiLSTM
+
         self.lstm = nn.LSTM(
             input_size=embedding_dim + (char_emb_dim * char_cnn_filter_num),
             hidden_size=hidden_dim,

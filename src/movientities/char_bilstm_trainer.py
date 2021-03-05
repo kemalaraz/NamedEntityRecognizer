@@ -120,7 +120,6 @@ class CharBilstmTrainer(object):
         max_word_len = max([len(token) for token in tokens])
         # transform to indices based on corpus vocab
         numericalized_tokens = [self.data.word_field.vocab.stoi[token.lower()] for token in tokens]
-        ### BEGIN MODIFIED SECTION: CHARACTER EMBEDDING ###
         numericalized_chars = []
         char_pad_id = self.data.char_pad_idx
         for token in tokens:
@@ -128,15 +127,13 @@ class CharBilstmTrainer(object):
                 [self.data.char_field.vocab.stoi[char] for char in token]
                 + [char_pad_id for _ in range(max_word_len - len(token))]
             )
-        ### END MODIFIED SECTION ###
-        # find unknown words
         unk_idx = self.data.word_field.vocab.stoi[self.data.word_field.unk_token]
         unks = [t for t, n in zip(tokens, numericalized_tokens) if n == unk_idx]
         # begin prediction
         token_tensor = torch.as_tensor(numericalized_tokens)
         token_tensor = token_tensor.unsqueeze(-1)
-        char_tensor = torch.as_tensor(numericalized_chars)  # NEWLY ADDED
-        char_tensor = char_tensor.unsqueeze(0)  # NEWLY ADDED: batch size at the beginning
+        char_tensor = torch.as_tensor(numericalized_chars)
+        char_tensor = char_tensor.unsqueeze(0)
         predictions = self.model(token_tensor, char_tensor)  # MODIFIED
         # convert results to tags
         top_predictions = predictions.argmax(-1)

@@ -145,17 +145,3 @@ class TrainerBiLstm(Trainer):
           + (f"\t{true_tags[i]}" if true_tags else "")
           )
     return tokens, predicted_tags, unks
-
-    @torch.no_grad()
-    def evaluate2(self, test_step):
-        y_pred = []
-        y_t = []
-        self.model.eval()
-        for sentence, tags in self.test_loader:
-            sentence_in = BuildData.prepare_data_bilstmcrf(sentence, self.tokenizer).to(self.__device__)
-            loss = self.model.neg_log_likelihood(sentence_in, tags)
-            prediction = self.model(sentence_in)
-            y_t.append(tags)
-            test_step += 1
-            self.writer.add_scalar("Loss/Test", loss, test_step)
-        print(classification_report(y_t, y_pred))
