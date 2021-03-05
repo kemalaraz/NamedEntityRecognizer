@@ -16,13 +16,14 @@ from sklearn.metrics import f1_score, precision_score, recall_score
 # TODO: Combine lstm trainers into one.
 class CharBilstmTrainer(object):
 
-    def __init__(self, model, data, optimizer_cls, loss_fn_cls):
+    def __init__(self, model, data, optimizer_cls, loss_fn_cls, log_file):
         self.model = model
         self.data = data
         self.optimizer = optimizer_cls(model.parameters())
         self.loss_fn = loss_fn_cls(ignore_index=self.data.tag_pad_idx)
         self.train_global = 0
         self.test_global = 0
+        self.writer = tensorboard.SummaryWriter(log_file)
 
     @staticmethod
     def epoch_time(start_time, end_time):
@@ -103,7 +104,7 @@ class CharBilstmTrainer(object):
             start_time = time.time()
             train_loss, train_acc = self.epoch()
             end_time = time.time()
-            epoch_mins, epoch_secs = Trainer.epoch_time(start_time, end_time)
+            epoch_mins, epoch_secs = CharBilstmTrainer.epoch_time(start_time, end_time)
             print(f"Epoch: {epoch + 1:02} | Epoch Time: {epoch_mins}m {epoch_secs}s")
             print(f"\tTrn Loss: {train_loss:.3f} | Trn Acc: {train_acc * 100:.2f}%")
             val_loss, val_acc, val_pre, val_rec, val_f1mac, val_f1mic = self.evaluate(self.data.test_iter)

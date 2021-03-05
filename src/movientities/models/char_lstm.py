@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 
-class BiLSTM(nn.Module):
+class CharBilstm(nn.Module):
 
     def __init__(self,
                  input_dim,
