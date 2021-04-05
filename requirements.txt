@@ -78,7 +78,7 @@ torchtext==0.6.0
 tornado==6.1
 tqdm==4.49.0
 traitlets==5.0.5
-transformers @ file:///home/kemalaraz/Desktop/transformers
+transformers==4.3.3
 typing-extensions==3.7.4.3
 urllib3==1.26.3
 wasabi==0.8.2
