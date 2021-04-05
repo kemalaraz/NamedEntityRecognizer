@@ -1,7 +1,7 @@
 # NERNETS
 
 Several intriguing networks specialized in named entity recognition. This repository is designed for doing named
-entity recognition quickly with a bunch of models. An example dataset which is MIT Movies (https://groups.csail.mit.edu/sls/downloads/movie/)
+entity recognition quickly with a bunch of models. An example dataset which is MIT Movies https://groups.csail.mit.edu/sls/downloads/movie/
 with currently implemented models shown in the notebooks section.
 
 ## Requirements
