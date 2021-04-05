@@ -1,14 +1,15 @@
 # NERNETS
 
 Several intriguing networks specialized in named entity recognition. This repository is designed for doing named
-entity recognition quickly with a bunch of models. An example dataset which is MIT Movies
-(https://groups.csail.mit.edu/sls/downloads/movie/) with currently implemented models shown in the notebooks
-section.
+entity recognition quickly with a bunch of models. An example dataset which is MIT Movies (https://groups.csail.mit.edu/sls/downloads/movie/)
+with currently implemented models shown in the notebooks section.
 
 ## Requirements
 
 Python 3.6+
+
 PyTorch 1.5.0
+
 TorchText 0.6.0
 
 ``` ├── LICENSE
