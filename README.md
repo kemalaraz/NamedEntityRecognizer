@@ -1,7 +1,7 @@
 # NERNETS
 
 Several intriguing networks specialized in named entity recognition. This repository is designed for doing named
-entity recognition quickly with a bunch of models. An example dataset which is MIT Movies (https://groups.csail.mit.edu/sls/downloads/movie/)
+entity recognition quickly with a bunch of models. An example dataset which is MIT Movies https://groups.csail.mit.edu/sls/downloads/movie/
 with currently implemented models shown in the notebooks section.
 
 ## Requirements
@@ -58,8 +58,10 @@ TorchText 0.6.0
     │
     └── tox.ini            <- TODO: tox file with settings for running tox; see tox.readthedocs.io
 ```
+## Quick Inference
 
-Several Named entity recognition models for training and exprerimenting with NER task.
+--------------------------------------------------------------------
+##### TODO:
 - [x] BERT Large model architecture and training loop.
 - [x] BiLSTM model architecture and training loop.
 - [x] Char BiLSTM model architecture and training loop.
@@ -68,8 +70,4 @@ Several Named entity recognition models for training and exprerimenting with NER
 - [ ] Wrap everything up in a pypi package.
 - [ ] Refactor everything and have one more generalized training loop and inference.
 - [ ] Roberta and Deberta model architecture and training loop.
-
-## Quick Inference
-
-TODO: Will write inference for whole models.
 
