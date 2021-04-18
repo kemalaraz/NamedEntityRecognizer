@@ -17,10 +17,10 @@ from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 class TrainerBiLstm(Trainer):
     """Standard trainer of BiLSTM"""
 
-    def __init__(self, model, data, optimizer_cls, loss_fn_cls, log_name:str):
+    def __init__(self, model, data, optimizer_cls, lr:float, loss_fn_cls, log_name:str):
         self.model = model
         self.data = data
-        self.optimizer = optimizer_cls(model.parameters())
+        self.optimizer = optimizer_cls(model.parameters(), lr=lr)
         self.loss_fn = loss_fn_cls(ignore_index=self.data.tag_pad_idx)
         self.writer = tensorboard.SummaryWriter(log_name)
         self.train_global = 0
@@ -230,10 +230,10 @@ class TrainerBiLstm(Trainer):
 class CharBilstmTrainer(object):
     """Standard trainer of CharBiLSTM"""
 
-    def __init__(self, model, data, optimizer_cls, loss_fn_cls, log_file):
+    def __init__(self, model, data, optimizer_cls, lr:float, loss_fn_cls, log_file):
         self.model = model
         self.data = data
-        self.optimizer = optimizer_cls(model.parameters())
+        self.optimizer = optimizer_cls(model.parameters(), lr=lr)
         self.loss_fn = loss_fn_cls(ignore_index=self.data.tag_pad_idx)
         self.train_global = 0
         self.test_global = 0
