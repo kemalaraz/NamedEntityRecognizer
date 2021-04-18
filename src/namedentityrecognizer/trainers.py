@@ -132,7 +132,7 @@ class TrainerBiLstm(Trainer):
             batch_loss = self.loss_fn(pred_tags, true_tags)
             batch_acc = self.accuracy(pred_tags, true_tags)
             batch_pre = precision_score(np_true, np_pred, labels=np.unique(np_pred), average='macro')
-            batch_rec = recall_score(np_true, np_pred, labels=np.unique(np_pred), average='macro')
+            batch_rec = recall_score(np_true, np_pred, labels=np.unique(np_pred), average='macro', zero_division=1)
             batch_f1mac = f1_score(np_true, np_pred, labels=np.unique(np_pred), average='macro')
             batch_f1mic = f1_score(np_true, np_pred, labels=np.unique(np_pred), average='micro')
 
@@ -348,7 +348,7 @@ class CharBilstmTrainer(object):
             batch_loss = self.loss_fn(pred_tags, true_tags)
             batch_acc = self.accuracy(pred_tags, true_tags)
             batch_pre = precision_score(np_true, np_pred, labels=np.unique(np_pred), average='macro')
-            batch_rec = recall_score(np_true, np_pred, labels=np.unique(np_pred), average='macro')
+            batch_rec = recall_score(np_true, np_pred, labels=np.unique(np_pred), average='macro', zero_division=1)
             batch_f1mac = f1_score(np_true, np_pred, labels=np.unique(np_pred), average='macro')
             batch_f1mic = f1_score(np_true, np_pred, labels=np.unique(np_pred), average='micro')
 
