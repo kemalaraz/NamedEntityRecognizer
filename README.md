@@ -1,13 +1,16 @@
 # NERNETS
 
-Several Named entity recognition models for training and exprerimenting with NER task.
-- [x] BERT Large model architecture and training loop.
-- [x] BiLSTM model architecture and training loop.
-- [ ] Char BiLSTM model architecture and training loop.
-- [ ] Roberta and Deberta model architecture and training loop.
-- [ ] Detailed instructions about how to use the repository.
-- [ ] Wrap everything up in a pypi package.
-- [ ] Refactor everything and have one more generalized training loop and inference.
+Several intriguing networks specialized in named entity recognition. This repository is designed for doing named
+entity recognition quickly with a bunch of models. An example dataset which is MIT Movies https://groups.csail.mit.edu/sls/downloads/movie/
+with currently implemented models shown in the notebooks section.
+
+## Requirements
+
+Python 3.6+
+
+PyTorch 1.5.0
+
+TorchText 0.6.0
 
 ``` ├── LICENSE
     │
@@ -55,7 +58,16 @@ Several Named entity recognition models for training and exprerimenting with NER
     │
     └── tox.ini            <- TODO: tox file with settings for running tox; see tox.readthedocs.io
 ```
-BERT_MIT_MOVIES_PRETRAINED_DOWNLOAD (pretrained model and logs)
-https://drive.google.com/drive/folders/174xu6RdQfaHlPC5YYp6Gk9UOYAnE7TTT?usp=sharing
-BERT_MIT_TRIVIA_PRETRAINED_DOWNLOAD (pretrained model and logs)
-https://drive.google.com/drive/folders/1L2x_xiEcOWv7kC7-MTcborWHw5EkJNri?usp=sharing
+## Quick Inference
+
+--------------------------------------------------------------------
+##### TODO:
+- [x] BERT Large model architecture and training loop.
+- [x] BiLSTM model architecture and training loop.
+- [x] Char BiLSTM model architecture and training loop.
+- [ ] Write inference for all models.
+- [ ] Detailed instructions about how to use the repository.
+- [ ] Wrap everything up in a pypi package.
+- [ ] Refactor everything and have one more generalized training loop and inference.
+- [ ] Roberta and Deberta model architecture and training loop.
+

@@ -133,3 +133,5 @@ dmypy.json
 # Tensorboard
 runs/
 trained_models*
+notebooks/bilstm_vanilla2
+notebooks/char_bilstm_vanilla
